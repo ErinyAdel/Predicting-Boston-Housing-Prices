@@ -1,3 +1,5 @@
+https://sajalsharma.com/portfolio/boston_housing
+***********************************************************************************************************************************************************************
 By spitting a dataset into training and testing subsets, we can train our model on the training subset, and then feed it with unseen data from the test subset to evaluate the performance of our model.
 
 Training and testing on the same data doesn’t give us a genuine evaluation of the model, at it has already seen testing the data when training, and thus might not perform well in real-world scenarios where we often deal with unseen data. Related to this is the problem of “overfitting”, i.e. the model can be really accurate on the training data, but perform poorly on the training data.
