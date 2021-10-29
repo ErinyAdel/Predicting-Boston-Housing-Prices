@@ -103,11 +103,16 @@ X_train, X_test, y_train, y_test = train_test_split(features, prices, test_size=
 ## Investigate the DecisionTree algorithm with an increasing 'max_depth' parameter on the full training set to observe how model complexity affects performance.
 
 ## Produce learning curves for varying training set sizes and maximum depths
+## Produce four graphs for a DecisionTree model with different maximum depths
 vs.ModelLearning(features, prices)
 
+## Produce a graph for a DecisionTree model that has been trained and validated on the training data using different maximum depths.
 vs.ModelComplexity(X_train, y_train)
 
 
+### Evaluating Model Performance
+
+## Fitting a Model -- To optimize the 'max_depth' parameter for the DecisionTree.
 def fit_model(X, y):
     """ Performs grid search over the 'max_depth' parameter for a 
         decision tree regressor trained on the input data [X, y]. """
@@ -139,7 +144,7 @@ def fit_model(X, y):
     # Return the optimal model after fitting the data
     return grid.best_estimator_
 
-
+## Making Predictions
 def PredictTrials(X, y, fitter, data):
     """ Performs trials of fitting and predicting data. """
 
@@ -169,7 +174,7 @@ def PredictTrials(X, y, fitter, data):
 reg = fit_model(X_train, y_train)
 
 # Produce the value for 'max_depth'
-print("Parameter 'max_depth' = {} for the optimal model.\n".format(reg.get_params()['max_depth']))
+print("Parameter 'max_depth' = {} For The Optimal Model.\n".format(reg.get_params()['max_depth']))
 ## or reg.get_params()['max_depth'] --> We can access our value from reg.get_params(), a dictionary, using dict['key']
 
 
@@ -180,7 +185,7 @@ client_data = [[5, 17, 15], # Client 1
 
 vs.DrawHistogram(prices, reg, client_data)
 
-## 
+## Predict for these clients.
 PredictTrials(features, prices, fit_model, client_data)
 
 # Show predictions
