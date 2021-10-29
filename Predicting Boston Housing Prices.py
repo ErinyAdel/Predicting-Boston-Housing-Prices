@@ -85,18 +85,19 @@ def PerformanceMetric(y_true, y_predict):
 
 ## Calculate the performance of this model
 score = PerformanceMetric([3, -0.5, 2, 7, 4.2], [2.5, 0.0, 2.1, 7.8, 5.3]) ## True Value, Prediction
-print("This model has a coefficient of determination, R²: {:.3f}\n".format(score))
+print("This model has a coefficient of determination, R² = {:.3f}\n".format(score))
 
 
-## Shuffle and split the data into training and testing subsets
+## Split the dataset into training and testing subsets 
+## Shuffle the dataset into a random order when creating the 2 subsets to remove any bias in the ordering of the dataset.
 X_train, X_test, y_train, y_test = train_test_split(features, prices, test_size=0.2, random_state=10, shuffle=True)
 ## Success
 #print("Training and testing split was successful.")
-
 ## Check if split is actually correct -- 80% train and 20% train
 #print("Training-Set / Dataset", float(X_train.shape[0]) / float(features.shape[0]))
 #print("Testing-Set / Dataset", float(X_test.shape[0]) / float(features.shape[0]))
 #print("Rows of X(Features):",features.shape[0], "Rows")
+
 
 # Produce learning curves for varying training set sizes and maximum depths
 vs.ModelLearning(features, prices)
