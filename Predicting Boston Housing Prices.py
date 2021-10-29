@@ -98,8 +98,11 @@ X_train, X_test, y_train, y_test = train_test_split(features, prices, test_size=
 #print("Testing-Set / Dataset", float(X_test.shape[0]) / float(features.shape[0]))
 #print("Rows of X(Features):",features.shape[0], "Rows")
 
+### Analyzing Model Performance
+## Take a look at several models’ learning and testing performances on various subsets of training data.
+## Investigate the DecisionTree algorithm with an increasing 'max_depth' parameter on the full training set to observe how model complexity affects performance.
 
-# Produce learning curves for varying training set sizes and maximum depths
+## Produce learning curves for varying training set sizes and maximum depths
 vs.ModelLearning(features, prices)
 
 vs.ModelComplexity(X_train, y_train)
