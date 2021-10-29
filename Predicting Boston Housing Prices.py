@@ -16,7 +16,8 @@ from IPython import get_ipython
 # Pretty display 
 get_ipython().run_line_magic('matplotlib', 'inline')
 
-# Load the Boston housing dataset
+### Reading the data, and separating the features and prices for homes into different pandas dataframes.
+## Load the Boston housing dataset
 data = pd.read_csv('housing.csv')
 prices = data['MEDV']                  ## Target Variable (y)   = (MEDV)
 features = data.drop('MEDV', axis = 1) ## Features (x1, x2, x3) = (RM, LSTAT, PTRATIO)
@@ -26,7 +27,8 @@ features = data.drop('MEDV', axis = 1) ## Features (x1, x2, x3) = (RM, LSTAT, PT
 ## Features Observation
 vs.FeatureObservation(data, features, prices)
 
-## Statistics like max, min, mean, median, std, percentiles
+### Data Exploration
+## Calculating Statistics like (max, min, mean, median, std, percentiles)
 #minimum_price = np.min(prices)   ## Minimum prices
 # minimum_price = prices.min()   ## Alternative using pandas
 
@@ -58,18 +60,32 @@ vs.FeatureObservation(data, features, prices)
 #print("Interquartile (IQR) of prices: ${:,.2f}\n".format(inter_quartile))
 
     
+### Developing a Model
 
-def performance_metric(y_true, y_predict):
+## The coefficient of determination for a model: Is a useful statistic in regression analysis, 
+##                                               as it often describes how “good” that model is 
+##                                               at making predictions.
+## Define a Performance Metric
+def PerformanceMetric(y_true, y_predict):
     """ Calculates and returns the performance score between 
         true and predicted values based on the metric chosen. """
 
+    """                  Mean Squared Error for the linear regression model
+    r2_score(): R² = 1 - __________________________________________________
+                         Mean Squared Error for the simple model
+    The values for R2 range from 0 to 1, which captures the percentage of squared correlation between 
+    the predicted and actual values of the target variable. 
+    A model with an R2=0 is no better than a model that always predicts the mean of the target variable, 
+    a model with an R2=1 perfectly predicts the target variable. 
+    Any value between 0 and 1 indicates what percentage of the target variable, using this model, can be explained by the features.
+    """
     score = r2_score(y_true, y_predict)
     return score
 
 
 ## Calculate the performance of this model
-score = performance_metric([3, -0.5, 2, 7, 4.2], [2.5, 0.0, 2.1, 7.8, 5.3]) ## True Value, Prediction
-print("This model has a coefficient of determination, R^2, of {:.3f}\n".format(score))
+score = PerformanceMetric([3, -0.5, 2, 7, 4.2], [2.5, 0.0, 2.1, 7.8, 5.3]) ## True Value, Prediction
+print("This model has a coefficient of determination, R²: {:.3f}\n".format(score))
 
 
 ## Shuffle and split the data into training and testing subsets
@@ -105,9 +121,9 @@ def fit_model(X, y):
     # Create a dictionary for the parameter 'max_depth' with a range from 1 to 10
     params = dict(max_depth = range(1, 11))
 
-    # Transform 'performance_metric' into a scoring function using 'make_scorer' 
-    # We initially created performance_metric using R2_score
-    scoring_fnc = make_scorer(performance_metric)
+    # Transform 'PerformanceMetric' into a scoring function using 'make_scorer' 
+    # We initially created PerformanceMetric using R2_score
+    scoring_fnc = make_scorer(PerformanceMetric)
 
     # Create the grid search object
     # You would realize we manually created each, including scoring_func using R^2
@@ -187,9 +203,9 @@ def fit_model_2(X, y):
     # Create a dictionary for the parameter 'max_depth' with a range from 1 to 10
     params = dict(max_depth = range(1, 11))
 
-    # Transform 'performance_metric' into a scoring function using 'make_scorer' 
-    # We initially created performance_metric using R2_score
-    scoring_fnc = make_scorer(performance_metric)
+    # Transform 'PerformanceMetric' into a scoring function using 'make_scorer' 
+    # We initially created PerformanceMetric using R2_score
+    scoring_fnc = make_scorer(PerformanceMetric)
 
     # Create the grid search object
     # You would realize we manually created each, including scoring_func using R^2
